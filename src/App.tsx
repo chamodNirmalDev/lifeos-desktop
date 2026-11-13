@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
+import Dashboard from './components/Dashboard';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -10,12 +11,17 @@ export function App() {
 
       {/* දකුණුපස Main Content එක */}
       <div className="flex-1 flex flex-col p-8 overflow-y-auto">
-        <h1 className="text-2xl font-bold capitalize">
-          {activeTab} Page
-        </h1>
-        <p className="text-slate-400 mt-2">
-          LifeOS ඩිස්ක්ටොප් ඇප් එකේ ප්‍රධාන පිටුව මෙහි පෙන්වනු ලැබේ.
-        </p>
+        {activeTab === 'dashboard' && <Dashboard />}
+        {activeTab !== 'dashboard' && (
+          <div>
+            <h1 className="text-2xl font-bold capitalize">
+              {activeTab} Page
+            </h1>
+            <p className="text-slate-400 mt-2">
+              Content for the selected page.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
