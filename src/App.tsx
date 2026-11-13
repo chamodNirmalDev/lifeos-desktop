@@ -4,10 +4,15 @@ import Dashboard from './components/Dashboard';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isCollapsed, setIsCollapsed] = useState(false);
   return (
     <div className="flex h-screen bg-slate-950 text-slate-100 overflow-hidden">
       {/* වම්පස Sidebar එක */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Sidebar 
+      activeTab={activeTab} 
+      setActiveTab={setActiveTab} 
+      isCollapsed={isCollapsed}
+      setIsCollapsed={setIsCollapsed} />
 
       {/* දකුණුපස Main Content එක */}
       <div className="flex-1 flex flex-col p-8 overflow-y-auto">
