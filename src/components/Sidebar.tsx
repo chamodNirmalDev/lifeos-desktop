@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   LayoutDashboard,
@@ -9,8 +8,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Activity,
-  PanelLeftClose,
-  PanelLeftOpen,
 } from 'lucide-react';
 
 interface SidebarProps {
