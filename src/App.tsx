@@ -4,6 +4,7 @@ import { Sidebar } from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import { Bell, Search, Command } from 'lucide-react';
 import TaskNotes from './components/TaskNotes';
+import CalendarView from './components/CalenderView';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -83,19 +84,21 @@ export function App() {
             {activeTab === 'dashboard' ? (
               <Dashboard />
             ) : activeTab === 'tasks' ? (
-              <TaskNotes />) : (
-              <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-                <div className="mb-4 rounded-2xl border border-cyan-400/10 bg-cyan-400/10 p-5 text-cyan-400">
-                  <Command size={30} />
+              <TaskNotes />) :
+              activeTab === 'calendar' ? (
+                <CalendarView />) : (
+                <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+                  <div className="mb-4 rounded-2xl border border-cyan-400/10 bg-cyan-400/10 p-5 text-cyan-400">
+                    <Command size={30} />
+                  </div>
+                  <h1 className="text-2xl font-bold text-white">
+                    {pageTitles[activeTab] || activeTab}
+                  </h1>
+                  <p className="mt-2 text-sm text-slate-500">
+                    This module is coming soon.
+                  </p>
                 </div>
-                <h1 className="text-2xl font-bold text-white">
-                  {pageTitles[activeTab] || activeTab}
-                </h1>
-                <p className="mt-2 text-sm text-slate-500">
-                  This module is coming soon.
-                </p>
-              </div>
-            )}
+              )}
           </div>
         </div>
 
