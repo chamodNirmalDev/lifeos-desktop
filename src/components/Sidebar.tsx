@@ -30,6 +30,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'finances', label: 'Finances', icon: Wallet },
   ];
 
+  const isSettingsActive = activeTab === 'settings';
+
   return (
     <aside
       className={`relative z-20 flex h-screen shrink-0 flex-col border-r border-white/[0.06] bg-[#0b1220] transition-all duration-300 ${
@@ -37,9 +39,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       }`}
     >
       {/* Brand */}
-      <div className={`flex h-[76px] shrink-0 items-center border-b border-white/[0.06] ${
-        isCollapsed ? 'justify-center px-2' : 'gap-3 px-6'
-      }`}>
+      <div
+        className={`flex h-[76px] shrink-0 items-center border-b border-white/[0.06] ${
+          isCollapsed ? 'justify-center px-2' : 'gap-3 px-6'
+        }`}
+      >
         <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-lg shadow-cyan-500/20">
           <Activity size={22} />
         </div>
@@ -67,7 +71,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Navigation */}
       <nav className="flex-1 space-y-7 overflow-y-auto px-3 py-7">
-
+        {/* Workspace Section */}
         <div>
           {!isCollapsed && (
             <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-600">
@@ -119,6 +123,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
+        {/* Preferences Section (Settings Tab) */}
         <div>
           {!isCollapsed && (
             <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-600">
@@ -129,16 +134,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={() => setActiveTab('settings')}
             title={isCollapsed ? 'Settings' : undefined}
-            className={`flex w-full items-center rounded-xl py-3 text-sm font-medium transition ${
+            className={`group relative flex w-full items-center rounded-xl py-3 text-sm font-medium transition-all duration-200 ${
               isCollapsed ? 'justify-center px-0' : 'gap-3 px-3.5'
             } ${
-              activeTab === 'settings'
+              isSettingsActive
                 ? 'bg-cyan-500/[0.12] text-cyan-300'
                 : 'text-slate-400 hover:bg-white/[0.04] hover:text-white'
             }`}
           >
-            <Settings size={19} className="shrink-0" />
-            {!isCollapsed && 'Settings'}
+            {isSettingsActive && (
+              <span className="absolute bottom-2 left-0 top-2 w-[3px] rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.7)]" />
+            )}
+
+            <Settings
+              size={19}
+              className={`shrink-0 transition-transform duration-200 ${
+                isSettingsActive
+                  ? 'text-cyan-400'
+                  : 'text-slate-500 group-hover:scale-110 group-hover:text-slate-200'
+              }`}
+            />
+
+            {!isCollapsed && <span className="truncate">Settings</span>}
+
+            {!isCollapsed && isSettingsActive && (
+              <span className="ml-auto h-1.5 w-1.5 rounded-full bg-cyan-400" />
+            )}
           </button>
         </div>
       </nav>
@@ -160,9 +181,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       {/* Footer */}
-      <div className={`flex shrink-0 items-center border-t border-white/[0.06] py-4 ${
-        isCollapsed ? 'justify-center px-2' : 'justify-between px-5'
-      }`}>
+      <div
+        className={`flex shrink-0 items-center border-t border-white/[0.06] py-4 ${
+          isCollapsed ? 'justify-center px-2' : 'justify-between px-5'
+        }`}
+      >
         {!isCollapsed && (
           <span className="text-[10px] text-slate-600">LifeOS v0.2.0</span>
         )}
